@@ -1,8 +1,8 @@
 .board{
     width: fit-content;
     display: grid;
-    grid-template-columns: repeat(3, auto);
-    grid-template-rows: repeat(3, auto);
+    grid-template-columns: repeat(3, 1fr);
+    /* grid-template-rows: repeat(3, 1fr); */
     /* background: greenyellow; */
     /* border: none; */
     /* grid-gap: 1rem; */

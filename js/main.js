@@ -26,9 +26,24 @@ $(document).ready(function(){
 
 // Create board function
 const boardSize = 3;
-let initialMatrix = [[boardSize],[boardSize]];
+let initialMatrix = Array(boardSize);
 
+const createMatrix = function(){
+    
+    for (let m=0; m<boardSize; m++)
+    {
+        initialMatrix[m] = 0
+        console.log(initialMatrix)
+        for (let n=0; n<boardSize; n++)
+        {
+            initialMatrix[m][n] = 0;
+        }
+    }
 
+    return initialMatrix;
+} //makes matrix with index
+
+createMatrix()
 
 
 // let createBoard = function(boardSize){
@@ -61,41 +76,147 @@ let initialMatrix = [[boardSize],[boardSize]];
 
 let playerTurn = 1;
 
-let dataRow = parseInt($(".tttsquare").data("row"));
-let dataColumn = parseInt($(".tttsquare").data("column"));
 
 
 
-console.log(dataColumn, dataRow)
+//check if it has a class or symbol
+// return initial matrix 
 
 
 
 
-const rowCheck = function(k,l){
+// const columnCheck = function(){
+//     for (let j=0;j<3;j++) {
+//         if ((initialMatrix[0][j] === initialMatrix[1][j]) && (initialMatrix[1][j] === initialMatrix[2][j]) && (initialMatrix[0][j] != 0))
+        
+//         {
+//             console.log(`"Player" + "${initialMatrix[0][j]}"`)
+
+//         }
+//     }
+
+// }
+
+// const rowCheck = function(){
+//     for (let i=0;i<3;i++)
+
+//     { if((initialMatrix[i][0] === initialMatrix[i][1]) && (initialMatrix[i][1]=== initialMatrix[i][2]) && (initialMatrix[i][0] != 0))
+//         {
+//             console.log(`"Player" + "${initialMatrix[i][0]}"`)
+
+//         }
+//     }
+// }
+
+
+// const diagonalCheck = function(){
+//     if(initialMatrix[0][0] == initialMatrix[1][1] && initialMatrix[1][1] == initialMatrix[2][2] && initialMatrix[0][0] != 0) {
+//         {
+//             console.log(`"Player" + "${initialMatrix[0][0]}"`)
+
+//         }
+// }}
+
+
+const rowCheck = function(){
+    
+    for (let i=0;i<3;i++)
+    
+    {
+        
+    for (let j=0;j<3;j++) 
+    
+    {
+
+        if (initialMatrix[i][j] != 0 && (typeof initialMatrix[i][j] === 'symbol')){
+            console.log("P2Wins")
+            
+
+        } else if (initialMatrix[i][j] != 0 && (typeof initialMatrix[i][j] === 'string')){
+            console.log("P1Wins")
+            
+            
+        }
 
         
-    for (let i=0;i<3;i++)
-    {
-        for (let j=0;j<3;j++)  
-        {
-            let newinitialMatrix = initialMatrix[i][j];
-
-            console.log(newinitialMatrix)
-            newinitialMatrix[k][l] = playerTurn;
-            if (initialMatrix[1][l] || (initialMatrix[i][1]))
-                
-                { 
-                    console.log("Player" + playerTurn)
-                }
-        }
+    
     }    
+} console.log(initialMatrix)
+}
+
+const columnCheck = function(){
+    
+    for (let i=0;i<3;i++)
+    
+    {
+        
+    for (let j=0;j<3;j++) 
+    
+    {
+
+        if (initialMatrix[j][i] != 0 && (typeof initialMatrix[j][i] === 'symbol')){
+            console.log("P2Wins")
+            return Player2Wins;
+
+        } else if (initialMatrix[j][i] != 0 && (typeof initialMatrix[j][i] === 'string')){
+            console.log("P1Wins")
+            return Player1Wins;
+        }
+        
+    
+    }    
+} console.log(initialMatrix)
+}
+
+const diagonalCheck = function(){
+
+    for (let i=0;i<3;i++)
+        {
+
+        if (initialMatrix[i][i] != 0 && (typeof initialMatrix[i][i] === 'symbol'))
+        {
+            console.log("P2Wins")
+            
+
+        } else if (initialMatrix[i][i] != 0 && (typeof initialMatrix[i][i] === 'string')
+        ){
+            console.log("P1Wins")
+            
+    
+        } else 
+        
+            for (let j=3;j<0;j--) 
+    
+                {
+
+                    if (initialMatrix[i][j] != 0 && (typeof initialMatrix[i][j] === 'symbol')){
+                        console.log("P2Wins")
+                        
+            
+                    } else if (initialMatrix[i][j] != 0 && (typeof initialMatrix[j][i] === 'string')){
+                        console.log("P1Wins")
+
+        
+                    }
+                }    
+}
 }
 //check if won 
+const winCondition = function(){
+rowCheck()
+columnCheck()
+diagonalCheck()
+
+}
 
 
-$(function(){
 
     $(".tttsquare").click(function(){
+       
+        let dataRow = parseInt($(this).data("row"));
+        let dataColumn = parseInt($(this).data("column"));
+        
+
         if ($(this).attr("class") === "tttsquare Player1" || $(this).attr("class") === "tttsquare Player2"){
         console.log("Try Again")
 
@@ -104,18 +225,25 @@ $(function(){
             // css("background-color", "purple");
             //change this to change value instead of color
             //put indication it is P2
+            playerTurn = -1;
 
-            rowCheck(dataRow,dataColumn)
-            playerTurn = 2;
+            initialMatrix[dataRow][dataColumn] = "Player1";
+            
+            
             
         } else {
             $(this).addClass("Player2")
+
             playerTurn = 1;
 
-        }
+            initialMatrix[dataRow][dataColumn] = Symbol("Player2"); //change to symbol
+            
+    
 
+        }
+        winCondition()
     }) //adds ID and changes turn. 
-})
+
 
 
 
