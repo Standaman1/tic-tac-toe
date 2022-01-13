@@ -153,14 +153,21 @@ const rowCheck = function(){
         if (P2Counter == 3){
             console.log("P2WinsR")
             P2Score++
+            $(".tttSquare").off("click")
+
             $("#P2WinMessage").show()
+            gameOver = true;
             return
         }
          
         else if(P1Counter == 3){
             console.log("P1WinsR")
             P1Score++
+            $(".tttSquare").off("click")
+
             $("#P1WinMessage").show()
+            gameOver = true;
+
             return
 
         }
@@ -191,14 +198,24 @@ const columnCheck = function(){
         }
         if (P2Counter == 3){
             console.log("P2WinsC")
+            P2Score++
+            $(".tttSquare").off("click")
+            
             $("#P2WinMessage").show()
+            gameOver = true;
+
             return
 
         }
          
         else if(P1Counter == 3){
             console.log("P1WinsC")
+            P1Score++
+            $(".tttSquare").off("click")
+            
             $("#P1WinMessage").show()
+            gameOver = true;
+
             return
 
 
@@ -227,16 +244,26 @@ const diagonalCheck = function(){
 
                 }
             if (P2Counter == 3){
-                    console.log("P2WinsD")
-                    $("#P2WinMessage").show()
-                    return
+                console.log("P2WinsD")
+                P2Score++
+                $(".tttSquare").off("click")
+
+                $("#P2WinMessage").show()
+                gameOver = true;
+
+                return
 
                 }
                 
             if(P1Counter == 3){
-                    console.log("P1WinsD")
-                    $("#P1WinMessage").show()
-                    return
+                console.log("P1WinsD")
+                P1Score++
+                $(".tttSquare").off("click")
+
+                $("#P1WinMessage").show()
+                gameOver = true;
+
+                return
                     
         
                 }
@@ -261,6 +288,9 @@ const diagonalCheckReverse = function(){
             }
             if (P2Counter == 3){
                     console.log("P2WinsDiag")
+                    P2Score++
+                    gameOver = true;
+
                     $("#P2WinMessage").show()
                     return
 
@@ -268,6 +298,10 @@ const diagonalCheckReverse = function(){
 
             if(P1Counter == 3){
                     console.log("P1WinsDiag")
+                    P1Score++
+            gameOver = true;
+                    
+
                     $("#P1WinMessage").show()
                     return
 
@@ -355,13 +389,41 @@ $("#lightseagreen").on("click", function(){
 })
 
 
+let drawCounter = 0;
+const drawCheck = function(){
+    if (drawCounter === 9){
+        console.log("Draw")
+        $("#DrawMessage").show()
+    };
 
+    // $(".tttsquare").each(function(){
+    //     if (!$(this).hasClass("clicked") === 0){
+    //         console.log("Draw")
+    //     }
+
+    // })
+
+}
+    // for (i=0;i<3;i++){
+
+    //     for (j=0;j<3;j++){
+        // if($(".tttSqaure").each.eq(i).data("row").hasClass("clicked") && $(".tttSqaure").each.eq(j).data("column").hasClass("clicked")) {
+        //     console.log("Draw")
+        // } 
+
+//         }
+
+        
+//     }
+// }
+let gameOver = false;
 
 const winCondition = function(){
-rowCheck()
-columnCheck()
-diagonalCheck()
-diagonalCheckReverse()
+    rowCheck()
+    columnCheck()
+    diagonalCheck()
+    diagonalCheckReverse()
+    drawCheck()
 
 }
 
@@ -374,12 +436,24 @@ diagonalCheckReverse()
         // console.log(dataRow)
         // console.log(dataColumn)
 
-        if ($(this).attr("class") === "tttsquare Player1" || $(this).attr("class") === "tttsquare Player2"){
-        return
-
-        } else if (playerTurn == 1){
  
-            $(this).addClass("Player1")
+        if ($(this).hasClass("clicked") || gameOver){
+            return;
+
+        } 
+        
+        if (drawCounter === 9  ){
+            console.log("ANything")
+            $(".tttSquare").off("click")
+        
+        }
+        
+        else if (playerTurn == 1){
+ 
+        
+            $(this).addClass("clicked")
+            drawCounter++
+            console.log(drawCounter)
             $(this).css("background-color", Player1Icon)
             //$(this).attr() = `<i class="fa fa-home"></i>`
             // css("background-color", "purple");
@@ -393,8 +467,11 @@ diagonalCheckReverse()
             
             
         } else {
-            $(this).addClass("Player2") 
+    
+            $(this).addClass("clicked")
             $(this).css("background-color", Player2Icon)
+            drawCounter++
+            console.log(drawCounter)
 
 
             initialMatrix[dataColumn][dataRow] = 2;
@@ -405,7 +482,13 @@ diagonalCheckReverse()
     
 
         }
+
         winCondition()
+        // if (drawCounter === 9 || $("#P1WinMessage").show()){
+        //     $(".tttSquare").off("click")
+        
+        // }
+        
     }
     
     ) //adds ID and changes turn. 
@@ -417,10 +500,16 @@ diagonalCheckReverse()
     $(".replaybutton").on('click', function(){
         $(".tttsquare").css("background-color", "purple")
         createMatrix()
+        drawCounter=0;
+        gameOver = false;
+        $(".tttsquare").removeClass("clicked")
         $("#P1Score").html(P1Score)
         $("#P1WinMessage").hide()
         $("#P2Score").html(P2Score)
         $("#P2WinMessage").hide()
+        $("#DrawMessage").hide()
+        playerTurn = 1;
+
     
     })
 
