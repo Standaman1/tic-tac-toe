@@ -32,7 +32,9 @@
 // }}//createsBoard
 
 
+
 $(document).ready(function(){
+
 
 // Create board function
 const boardSize = 3;
@@ -54,6 +56,8 @@ const createMatrix = function(){
 } //makes matrix with index
 
 createMatrix()
+
+
 // console.log(initialMatrix)
 
 // let createBoard = function(boardSize){
@@ -148,15 +152,24 @@ const rowCheck = function(){
         }
         if (P2Counter == 3){
             console.log("P2WinsR")
+            P2Score++
+            $("#P2WinMessage").show()
+            return
         }
          
         else if(P1Counter == 3){
             console.log("P1WinsR")
+            P1Score++
+            $("#P1WinMessage").show()
+            return
 
         }
 }    
 }
 }}
+
+
+
 
 const columnCheck = function(){
 
@@ -178,10 +191,16 @@ const columnCheck = function(){
         }
         if (P2Counter == 3){
             console.log("P2WinsC")
+            $("#P2WinMessage").show()
+            return
+
         }
          
         else if(P1Counter == 3){
             console.log("P1WinsC")
+            $("#P1WinMessage").show()
+            return
+
 
         }
 }    
@@ -207,12 +226,18 @@ const diagonalCheck = function(){
                 // console.log("P1Counter", P1Counter)
 
                 }
-                if (P2Counter == 3){
+            if (P2Counter == 3){
                     console.log("P2WinsD")
+                    $("#P2WinMessage").show()
+                    return
+
                 }
                 
-                if(P1Counter == 3){
+            if(P1Counter == 3){
                     console.log("P1WinsD")
+                    $("#P1WinMessage").show()
+                    return
+                    
         
                 }
 
@@ -229,18 +254,23 @@ const diagonalCheckReverse = function(){
 
             if (initialMatrix[i][j] != 1){
                 P2Counter ++
-                console.log("P2Counter", P2Counter)
+                // console.log("P2Counter", P2Counter)
             } else {
                 P1Counter ++
-                  console.log("P1Counter", P1Counter)
+                //   console.log("P1Counter", P1Counter)
             }
-                if (P2Counter == 3){
+            if (P2Counter == 3){
                     console.log("P2WinsDiag")
+                    $("#P2WinMessage").show()
+                    return
+
                 }
 
-                if(P1Counter == 3){
+            if(P1Counter == 3){
                     console.log("P1WinsDiag")
-        
+                    $("#P1WinMessage").show()
+                    return
+
                 }
 
 }
@@ -305,6 +335,26 @@ const diagonalCheckReverse = function(){
 // }
 // }
 
+let Player1Icon
+let Player2Icon
+
+$("#pink").on("click", function(){
+    Player1Icon = "pink"
+})
+
+$("#aquamarine").on("click", function(){
+    Player1Icon = "aquamarine"
+})
+
+$("#yellow").on("click", function(){
+    Player2Icon = "yellow"
+})
+
+$("#lightseagreen").on("click", function(){
+    Player2Icon = "lightseagreen"
+})
+
+
 
 
 const winCondition = function(){
@@ -325,18 +375,18 @@ diagonalCheckReverse()
         // console.log(dataColumn)
 
         if ($(this).attr("class") === "tttsquare Player1" || $(this).attr("class") === "tttsquare Player2"){
-        console.log("Try Again")
+        return
 
         } else if (playerTurn == 1){
  
             $(this).addClass("Player1")
-            $(this).css("background-color", "purple")
+            $(this).css("background-color", Player1Icon)
+            //$(this).attr() = `<i class="fa fa-home"></i>`
             // css("background-color", "purple");
             //change this to change value instead of color
             //put indication it is P2
             initialMatrix[dataColumn][dataRow] = 1;
             playerTurn = 2;
-            console.table(initialMatrix)
 
             
             
@@ -344,7 +394,8 @@ diagonalCheckReverse()
             
         } else {
             $(this).addClass("Player2") 
-            $(this).css("background-color", "red")
+            $(this).css("background-color", Player2Icon)
+
 
             initialMatrix[dataColumn][dataRow] = 2;
             playerTurn = 1;
@@ -355,12 +406,28 @@ diagonalCheckReverse()
 
         }
         winCondition()
-    }) //adds ID and changes turn. 
+    }
+    
+    ) //adds ID and changes turn. 
 
-
+    let P1Score = 0;
+    let P2Score = 0;
+    
+    
+    $(".replaybutton").on('click', function(){
+        $(".tttsquare").css("background-color", "purple")
+        createMatrix()
+        $("#P1Score").html(P1Score)
+        $("#P1WinMessage").hide()
+        $("#P2Score").html(P2Score)
+        $("#P2WinMessage").hide()
+    
+    })
 
 
 });
+
+
 
 
 

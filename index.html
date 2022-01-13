@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
 
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Document</title>
 </head>
 
@@ -24,6 +24,22 @@
     
 
 <h1>Tic Tac Toe</h1>
+
+
+<!-- player turn -->
+<!-- <div class="playerturnbox">
+    <div class="details">
+        <div class="whichturn">
+            <span class="P1Turn">Player 1 Turn</span>
+            <span class="P2Turn">Player 2 Turn</span>
+            <div class="slider"></div>
+        </div>
+
+    </div>
+
+
+</div> -->
+
 
 <div class="board">
     <div 
@@ -75,36 +91,54 @@
 <!-- Board -->
 
 <div class="scoreboard">
-    <div class="scoreboardinfo">Player 1</div>
-    <div class="scoreboardinfo">Player 2</div>
+    <div class="scoreboardhead" >Player 1</div>
+    <div class="scoreboardhead">Player 2</div>
     <div class="scoreboardinfo" id = "p1Icon">Player 1 Icon
-        <!-- <div class = "p1IconSelect">
-            <img src = "images/lifecycle.png">
+
+        <button class = "icons" id = "pink" style = "background-color:pink">Pink</button>
+        <button class = "icons" id = "aquamarine" style = "background-color:aquamarine">Aquamarine</button>
+        <button class="icons" id = "fa-trash"><i class="fa fa-trash"></i></button>
+
+        </div>
+
+        <div class="scoreboardinfo" id = "p2Icon">Player 2 Icon
+        <button class = "icons" id = "lightseagreen" style = "background-color: lightseagreen">Light Sea Green</button>
+        <button class = "icons" id = "yellow" style = "background-color:yellow">Yellow</button>
+        
+        <button class="icons" id = "fa-trash"><i class="fa fa-trash"></i></button>
+        <!-- <div class = "p2IconSelect">
+        <img src = "images/delete-symbol.png">
         </div> -->
-        <!-- <div class = "p1IconSelect">
-            <img src = "images/remove.png">
+        <!-- <div class = "p2IconSelect">
+        <img src = "images/ear.jpg">
         </div> -->
         </div>
-    <div class="scoreboardinfo" id = "p2Icon">Player 2 Icon
-        <!-- <div class = "p2IconSelect">
-            <img src = "images/delete-symbol.png">
-        </div> -->
-        <!-- <div class = "p2IconSelect">
-            <img src = "images/ear.jpg">
-        </div> -->
-    </div>
-    <div class="scoreboardinfo">Score</div>
-    <div class="scoreboardinfo">Score</div>
+    <div class="scoreboardinfo">Score: <span id = "P1Score"></span></div>
+    
+    <div class="scoreboardinfo">Score: <span id = "P2Score"></span></div>
 
 
 
+  
 
 </div>
 
 
+
+
+<div class="resultbox">
+    <div class="won-text"></div>
+    <div class="replaybutton"><button>Play Again?</button></div>
+
+</div>
+
+<div id="P1WinMessage">Player1Wins </div>
+<div id="P2WinMessage">Player2Wins </div>
+<div id="DrawMessage">Ew! Draw</div>
+
+
 <script src="js/jquery.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.3.2/math.js"></script>
 
 <script src="js/main.js"></script>
 </body>
